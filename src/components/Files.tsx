@@ -19,6 +19,18 @@ const Files: React.FC = () => {
     setFiles(response.data.foundFiles);
   };
 
+  const removeElement = async (_id: string) => {
+    try {
+      const response = await axios.delete(`${API_URL}/upload`, {
+        data: { _id },
+      });
+      fetchFiles();
+      console.log("response: ", response);
+    } catch (error) {
+      console.error("Error deleting item:", error);
+    }
+  };
+
   useEffect(() => {
     fetchFiles();
   }, []);
@@ -28,7 +40,13 @@ const Files: React.FC = () => {
       <h1>Files</h1>
       <div className={classes.filesContainer}>
         {files.length > 0 ? (
-          files.map((file) => <FileElement _id={file._id} name={file.name} />)
+          files.map((file) => (
+            <FileElement
+              _id={file._id}
+              name={file.name}
+              removeElement={removeElement}
+            />
+          ))
         ) : (
           <p>No files available</p>
         )}

@@ -8,6 +8,7 @@ import { faFilePdf } from "@fortawesome/free-regular-svg-icons"; //
 interface FileElementProps {
   _id: string;
   name: string;
+  removeElement: (id: string) => Promise<void>;
 }
 
 const FileElement: React.FC<FileElementProps> = (props) => {
@@ -17,7 +18,13 @@ const FileElement: React.FC<FileElementProps> = (props) => {
       <div>
         <span key={props._id}>{props.name}</span>
       </div>
-      <button>✕</button>
+      <button
+        onClick={() => {
+          props.removeElement(props._id);
+        }}
+      >
+        ✕
+      </button>
     </div>
   );
 };
