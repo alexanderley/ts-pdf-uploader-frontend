@@ -1,0 +1,7 @@
+.filesContainer {
+  border: 1px solid white;
+  min-height: 50px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}

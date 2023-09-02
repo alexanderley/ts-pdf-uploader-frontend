@@ -1,0 +1,12 @@
+.fileElement {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.fileElement div {
+  flex-grow: 1;
+  display: flex;
+}
