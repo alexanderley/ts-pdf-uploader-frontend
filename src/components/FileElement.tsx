@@ -4,6 +4,7 @@ import classes from "./FileElement.module.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePdf } from "@fortawesome/free-regular-svg-icons"; //
+import { Link } from "react-router-dom";
 
 interface FileElementProps {
   _id: string;
@@ -16,7 +17,9 @@ const FileElement: React.FC<FileElementProps> = (props) => {
     <div className={classes.fileElement}>
       <FontAwesomeIcon icon={faFilePdf} style={{ height: "30px" }} />
       <div>
-        <span key={props._id}>{props.name}</span>
+        <span key={props._id}>
+          <Link to={`/file/${props._id}`}>{props.name}</Link>
+        </span>
       </div>
       <button
         onClick={() => {

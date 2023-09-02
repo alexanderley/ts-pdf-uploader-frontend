@@ -7,13 +7,16 @@ import HomePage from "./pages/HomePage";
 import ProjectPage from "./pages/ProjectPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
+import FilesPage from "./pages/FilesPage";
+import FileContentPage from "./pages/FileContentPage";
+import VertificationPage from "./pages/VertificationPage";
 
 // Middleware checking if a user is logged in or not
 import IsAnon from "./middleware/IsAnon";
 import IsPrivate from "./middleware/IsPrivate";
+
+// Context
 import { AuthProviderWrapper } from "./context/AuthContext";
-import VertificationPage from "./pages/VertificationPage";
-import FilesPage from "./pages/FilesPage";
 
 function App() {
   return (
@@ -36,6 +39,14 @@ function App() {
               element={
                 <IsPrivate>
                   <FilesPage />
+                </IsPrivate>
+              }
+            />
+            <Route
+              path="/file/:id"
+              element={
+                <IsPrivate>
+                  <FileContentPage />
                 </IsPrivate>
               }
             />

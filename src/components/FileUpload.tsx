@@ -32,6 +32,7 @@ const FileUpload: React.FC = () => {
       // Append each selected file to the form data
       for (let i = 0; i < selectedFiles.length; i++) {
         formData.append("testFile", selectedFiles[i]);
+        console.log("formData: ", formData);
       }
 
       const response = await axios.post(`${API_URL}/upload`, formData, {
@@ -41,6 +42,7 @@ const FileUpload: React.FC = () => {
       });
 
       console.log(response);
+      console.log("formData: ", formData);
     } catch (error) {
       console.error(error);
     }
@@ -49,14 +51,18 @@ const FileUpload: React.FC = () => {
   return (
     <>
       <h1>Upload your file here!</h1>
-      <form onSubmit={handleSubmit} className={classes.uploadForm}>
+      <form
+        onSubmit={handleSubmit}
+        className={classes.uploadForm}
+        encType="multipart/form-data"
+      >
         <div className={classes.topSection}>
           <div>
             <label htmlFor="name">File Name: </label>
             <input
               type="text"
-              name="file-name"
-              id="name"
+              name="testFile"
+              id="testFile"
               value={fileName}
               onChange={handleNameChange}
             />
@@ -65,11 +71,10 @@ const FileUpload: React.FC = () => {
             <label htmlFor="files">Select File: </label>
 
             <label className="custom-file-upload">
-              Upload Files
               <input
                 type="file"
-                name="file"
-                id="files"
+                name="testFile"
+                id="testFile"
                 multiple
                 onChange={handleFileChange}
               />
