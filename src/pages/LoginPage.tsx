@@ -20,6 +20,25 @@ const LoginPage: React.FC = () => {
   const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) =>
     setPassword(e.target.value);
 
+  // const handleLoginSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   const requestBody = { name, password };
+
+  //   try {
+  //     const response = await axios.post(`${API_URL}/auth/login`, requestBody);
+  //     console.log("JWT token", response.data.authToken);
+
+  //     storeToken(response.data.authToken);
+  //     authenticateUser();
+
+  //     // Redirect to the upload page after successful login
+  //     navigate("/upload");
+  //   } catch (error: any) {
+  //     console.error(error);
+  //     setErrorMessage(error.message);
+  //   }
+  // };
+
   const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const requestBody = { name, password };
@@ -34,8 +53,14 @@ const LoginPage: React.FC = () => {
       // Redirect to the upload page after successful login
       navigate("/upload");
     } catch (error: any) {
-      console.error(error);
-      setErrorMessage(error.message);
+      if (error.response) {
+        // If the error has a response from the server
+        console.error(error.response.data.message);
+        setErrorMessage(error.response.data.message); // Set the error message in your component state
+      } else {
+        console.error("An error occurred:", error.message);
+        setErrorMessage("An error occurred. Please try again."); // Generic error message
+      }
     }
   };
 
