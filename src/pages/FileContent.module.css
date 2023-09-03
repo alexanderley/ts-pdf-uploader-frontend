@@ -1,0 +1,5 @@
+.textContent {
+  text-align: left;
+  line-height: 150%;
+  max-width: 75ch;
+}

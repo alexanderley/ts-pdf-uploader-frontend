@@ -50,7 +50,7 @@ const FileUpload: React.FC = () => {
 
   return (
     <>
-      <h1>Upload your file here!</h1>
+      <h1>Upload Your File Here!</h1>
       <form
         onSubmit={handleSubmit}
         className={classes.uploadForm}

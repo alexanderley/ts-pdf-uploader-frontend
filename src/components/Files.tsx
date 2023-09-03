@@ -37,7 +37,7 @@ const Files: React.FC = () => {
 
   return (
     <>
-      <h1>Files</h1>
+      <h2>Files</h2>
       <div className={classes.filesContainer}>
         {files.length > 0 ? (
           files.map((file) => (
