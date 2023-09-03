@@ -55,7 +55,9 @@ const LoginPage: React.FC = () => {
           onChange={handlePassword}
         />
 
-        <button type="submit">Login</button>
+        <button style={{ width: "100%", marginTop: "5px" }} type="submit">
+          Login
+        </button>
       </form>
 
       {errorMessage && <p className="error-message">{errorMessage}</p>}
