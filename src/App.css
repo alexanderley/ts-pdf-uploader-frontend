@@ -47,3 +47,8 @@
   gap: 5px;
   align-items: flex-start;
 }
+
+.error-message {
+  font-size: 13px;
+  color: #ff5733;
+}
