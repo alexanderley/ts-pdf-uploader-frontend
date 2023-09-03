@@ -1,16 +1,17 @@
-import axios from "axios";
 import React, { useState, ChangeEvent, FormEvent } from "react";
+import axios from "axios";
 import API_URL from "../../apiKey";
 
 import classes from "./FileUpload.module.css";
 
 interface FileUploadProps {
-  fetchFiles: () => void; // Define the fetchFiles prop
+  fetchFiles: () => void;
 }
 
 const FileUpload: React.FC<FileUploadProps> = (props) => {
   const [fileName, setFileName] = useState("");
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
+  const [uploadMessage, setUploadMessage] = useState<string | null>(null);
 
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFileName(e.target.value);
@@ -31,23 +32,24 @@ const FileUpload: React.FC<FileUploadProps> = (props) => {
 
     try {
       const formData = new FormData();
-      formData.append("name", fileName); // Add the file name to the form data
+      formData.append("name", fileName);
 
-      // Append each selected file to the form data
       for (let i = 0; i < selectedFiles.length; i++) {
         formData.append("testFile", selectedFiles[i]);
-        console.log("formData: ", formData);
       }
 
-      const response = await axios.post(`${API_URL}/upload`, formData, {
+      await axios.post(`${API_URL}/upload`, formData, {
         headers: {
-          "Content-Type": "multipart/form-data", // Set the content type for form data
+          "Content-Type": "multipart/form-data",
         },
       });
 
-      console.log(response);
-      console.log("formData: ", formData);
       props.fetchFiles();
+
+      setUploadMessage("File uploaded successfully");
+      setTimeout(() => {
+        setUploadMessage(null);
+      }, 1000); // Hide the message after 3 seconds
     } catch (error) {
       console.error(error);
     }
@@ -74,7 +76,6 @@ const FileUpload: React.FC<FileUploadProps> = (props) => {
           </div>
           <div>
             <label htmlFor="files">Select File: </label>
-
             <label className="custom-file-upload">
               <input
                 type="file"
@@ -92,6 +93,8 @@ const FileUpload: React.FC<FileUploadProps> = (props) => {
           </button>
         </div>
       </form>
+
+      {uploadMessage && <p style={{ color: "#50C878" }}>{uploadMessage}</p>}
     </>
   );
 };

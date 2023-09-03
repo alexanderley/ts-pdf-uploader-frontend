@@ -3,7 +3,7 @@ import "font-awesome/css/font-awesome.min.css";
 import classes from "./FileElement.module.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFilePdf } from "@fortawesome/free-regular-svg-icons"; //
+import { faFilePdf } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
 
 interface FileElementProps {

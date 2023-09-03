@@ -7,9 +7,6 @@ const Navbar: React.FC = () => {
   // the values from AuthContext.Provider `value` prop
   const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
 
-  console.log("isloggedIn", isLoggedIn);
-  //   console.log("user", user);
-
   return (
     <nav
       style={{
@@ -31,16 +28,12 @@ const Navbar: React.FC = () => {
           </Link>
 
           <button onClick={logOutUser}>Logout</button>
-          <span>{user && user.name}</span>
+          <span style={{ marginLeft: "20px" }}>{user && user.name}</span>
         </>
       )}
 
       {!isLoggedIn && (
         <>
-          <Link to="/signup">
-            {" "}
-            <button>Sign Up</button>{" "}
-          </Link>
           <Link to="/login">
             {" "}
             <button>Login</button>{" "}

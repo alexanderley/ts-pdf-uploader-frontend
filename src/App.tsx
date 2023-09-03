@@ -4,12 +4,9 @@ import Navbar from "./components/ui/Navbar";
 
 // Pages of the application
 import HomePage from "./pages/HomePage";
-import ProjectPage from "./pages/ProjectPage";
 import LoginPage from "./pages/LoginPage";
-import SignupPage from "./pages/SignupPage";
 import FilesPage from "./pages/FilesPage";
 import FileContentPage from "./pages/FileContentPage";
-import VertificationPage from "./pages/VertificationPage";
 
 // Middleware checking if a user is logged in or not
 import IsAnon from "./middleware/IsAnon";
@@ -27,14 +24,6 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route
-              path="/projects"
-              element={
-                <IsPrivate>
-                  <ProjectPage />{" "}
-                </IsPrivate>
-              }
-            />
-            <Route
               path="/upload"
               element={
                 <IsPrivate>
@@ -51,14 +40,6 @@ function App() {
               }
             />
             <Route
-              path="/signup"
-              element={
-                <IsAnon>
-                  <SignupPage />{" "}
-                </IsAnon>
-              }
-            />
-            <Route
               path="/login"
               element={
                 <IsAnon>
@@ -66,7 +47,6 @@ function App() {
                 </IsAnon>
               }
             />
-            <Route path="/verify" element={<VertificationPage />}></Route>
           </Routes>
         </Router>
       </div>

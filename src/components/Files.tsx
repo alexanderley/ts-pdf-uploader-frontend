@@ -18,11 +18,10 @@ interface FilesProps {
 const Files: React.FC<FilesProps> = (props) => {
   const removeElement = async (_id: string) => {
     try {
-      const response = await axios.delete(`${API_URL}/upload`, {
+      await axios.delete(`${API_URL}/upload`, {
         data: { _id },
       });
       props.fetchFiles();
-      console.log("response: ", response);
     } catch (error) {
       console.error("Error deleting item:", error);
     }
@@ -35,14 +34,14 @@ const Files: React.FC<FilesProps> = (props) => {
         {props.files.length > 0 ? (
           props.files.map((file) => (
             <FileElement
-              key={file._id} // Add a unique key for each FileElement
+              key={file._id}
               _id={file._id}
               name={file.name}
               removeElement={removeElement}
             />
           ))
         ) : (
-          <p>No files available</p>
+          <p>Files loading...</p>
         )}
       </div>
     </>

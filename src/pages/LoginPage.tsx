@@ -1,15 +1,15 @@
-import React from "react";
-import { useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-
 import API_URL from "../../apiKey";
 
 const LoginPage: React.FC = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState(undefined);
+  const [errorMessage, setErrorMessage] = useState<string | undefined>(
+    undefined
+  );
 
   const navigate = useNavigate();
 
@@ -30,10 +30,12 @@ const LoginPage: React.FC = () => {
 
       storeToken(response.data.authToken);
       authenticateUser();
-      navigate("/");
+
+      // Redirect to the upload page after successful login
+      navigate("/upload");
     } catch (error: any) {
       console.error(error);
-      setErrorMessage(error);
+      setErrorMessage(error.message);
     }
   };
 
@@ -55,10 +57,8 @@ const LoginPage: React.FC = () => {
 
         <button type="submit">Login</button>
       </form>
-      {/* {errorMessage && <p className="error-message">{errorMessage}</p>} */}
 
-      <p>Don't have an account yet?</p>
-      <Link to={"/signup"}> Sign Up</Link>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
   );
 };
