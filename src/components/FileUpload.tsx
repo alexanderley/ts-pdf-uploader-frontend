@@ -4,7 +4,11 @@ import API_URL from "../../apiKey";
 
 import classes from "./FileUpload.module.css";
 
-const FileUpload: React.FC = () => {
+interface FileUploadProps {
+  fetchFiles: () => void; // Define the fetchFiles prop
+}
+
+const FileUpload: React.FC<FileUploadProps> = (props) => {
   const [fileName, setFileName] = useState("");
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
 
@@ -43,6 +47,7 @@ const FileUpload: React.FC = () => {
 
       console.log(response);
       console.log("formData: ", formData);
+      props.fetchFiles();
     } catch (error) {
       console.error(error);
     }

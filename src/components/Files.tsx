@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import classes from "./Files.module.css";
 import axios from "axios";
@@ -10,38 +10,32 @@ interface File {
   name: string;
 }
 
-const Files: React.FC = () => {
-  const [files, setFiles] = useState<File[]>([]);
+interface FilesProps {
+  files: File[]; // Define a prop for files
+  fetchFiles: () => void; // Define a prop for fetchFiles function
+}
 
-  const fetchFiles = async () => {
-    const response = await axios.get(`${API_URL}/upload`);
-    console.log("res.data: ", response);
-    setFiles(response.data.foundFiles);
-  };
-
+const Files: React.FC<FilesProps> = (props) => {
   const removeElement = async (_id: string) => {
     try {
       const response = await axios.delete(`${API_URL}/upload`, {
         data: { _id },
       });
-      fetchFiles();
+      props.fetchFiles();
       console.log("response: ", response);
     } catch (error) {
       console.error("Error deleting item:", error);
     }
   };
 
-  useEffect(() => {
-    fetchFiles();
-  }, []);
-
   return (
     <>
       <h2>Files</h2>
       <div className={classes.filesContainer}>
-        {files.length > 0 ? (
-          files.map((file) => (
+        {props.files.length > 0 ? (
+          props.files.map((file) => (
             <FileElement
+              key={file._id} // Add a unique key for each FileElement
               _id={file._id}
               name={file.name}
               removeElement={removeElement}

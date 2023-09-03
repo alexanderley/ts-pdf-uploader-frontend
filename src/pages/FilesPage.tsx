@@ -1,68 +1,71 @@
-import React, { useState, useEffect, FormEvent } from "react";
+// import React, { useState, useEffect } from "react";
 
+// // import axios from "axios";
+// import Files from "../components/Files";
+// import FileUpload from "../components/FileUpload";
+// import API_URL from "../../apiKey";
 // import axios from "axios";
+
+// interface File {
+//   _id: string;
+//   name: string;
+// }
+
+// const FilesPage: React.FC = () => {
+//   const [files, setFiles] = useState<File[]>([]);
+
+//   const fetchFiles = async () => {
+//     const response = await axios.get(`${API_URL}/upload`);
+//     console.log("res.data: ", response);
+//     setFiles(response.data.foundFiles);
+//   };
+
+//   useEffect(() => {
+//     fetchFiles();
+//   }, []);
+
+//   return (
+//     <>
+//       <FileUpload fetchFiles={fetchFiles} />
+//       <Files files={files} fetchFiles={fetchFiles} />
+//     </>
+//   );
+// };
+
+// export default FilesPage;
+
+import React, { useState, useEffect } from "react";
 import Files from "../components/Files";
 import FileUpload from "../components/FileUpload";
 import API_URL from "../../apiKey";
 import axios from "axios";
 
-// Define the type for file data
-interface FileData {
+interface File {
   _id: string;
   name: string;
-  file: {
-    data: Buffer;
-    contentType: string;
-  };
-  __v: number;
 }
 
 const FilesPage: React.FC = () => {
-  // Shared state to hold file data
-  const [fileData, setFileData] = useState<FileData[]>([]);
+  const [files, setFiles] = useState<File[]>([]);
 
-  // Function to update fileData after successful upload
-  // const updateFileData = async (
-  //   e: FormEvent,
-  //   selectedFiles: FileList,
-  //   fileName: string
-  // ) => {
-  //   e.preventDefault();
-
-  //   if (!selectedFiles || !selectedFiles.length) {
-  //     console.error("No files selected");
-  //     return;
-  //   }
-
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append("name", fileName); // Add the file name to the form data
-
-  //     // Append each selected file to the form data
-  //     for (let i = 0; i < selectedFiles.length; i++) {
-  //       formData.append("testFile", selectedFiles[i]);
-  //     }
-
-  //     const response = await axios.post(`${API_URL}/upload`, formData, {
-  //       headers: {
-  //         "Content-Type": "multipart/form-data", // Set the content type for form data
-  //       },
-  //     });
-
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  const fetchFiles = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/upload`);
+      console.log("res.data: ", response);
+      setFiles(response.data.foundFiles);
+    } catch (error) {
+      console.error("Error fetching files:", error);
+    }
+  };
 
   useEffect(() => {
-    setFileData([]);
+    fetchFiles();
   }, []);
 
   return (
     <>
-      <FileUpload />
-      <Files />
+      <FileUpload fetchFiles={fetchFiles} />
+      <Files files={files} fetchFiles={fetchFiles} />
     </>
   );
 };
