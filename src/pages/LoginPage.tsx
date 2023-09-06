@@ -85,7 +85,7 @@ const LoginPage: React.FC = () => {
         </button>
       </form>
 
-      {errorMessage && <span className="error-message">{errorMessage}</span>}
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
   );
 };
